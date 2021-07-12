@@ -1,0 +1,36 @@
+@use 'sass:math';
+
+// Functions
+@import 'functions';
+
+// Colors
+$black: #000000;
+$white: #ffffff;
+$primary: #003da6;
+$secondary: #0078ff;
+
+$body-color: $color-6;
+$body-bg: $white;
+
+// Typography
+$font-family-base: Roboto, system-ui, -apple-system, 'Segoe UI',
+  'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif,
+  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-weight-base: normal;
+$line-height-base: 1.5;
+$font-size-base: 1rem;
+
+// Links
+$link-color: inherit;
+$link-decoration: underline;
+$link-hover-color: null;
+$link-hover-decoration: none;
+
+// Box Shadows
+$box-shadow: 0 0.625rem 1.25rem 0 rgba($black, 0.1);
+$box-shadow-md: 0 0.9375rem 2.5rem 0 rgba($black, 0.1);
+
+// Transitions
+$transition-base: color 0.25s ease, background-color 0.25s ease,
+  border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease,
+  transform 0.25s ease, visibility 0.25s ease;
