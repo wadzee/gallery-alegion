@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { getImageList, ImageListProps, common } from 'services'
 import { LazyLoadImg } from 'Utils'
+import { useHistory } from 'react-router'
 import Pagination from 'components/Pagination'
 import Image from 'components/Image'
+import Spinner from 'components/Spinner'
 import classes from 'classnames'
 import './gallery.scss'
-import Spinner from 'components/Spinner'
 
 export default function GalleryPage() {
   const [page, setPage] = useState(0)
   const [images, setImages] = useState<ImageListProps[]>()
+  const history = useHistory()
 
   useEffect(() => {
     setImages(undefined)
@@ -21,10 +23,13 @@ export default function GalleryPage() {
     setImages(item)
   }
 
+  const onImageClick = (id: ImageListProps['id']) => {
+    history.push(`/image?id=${id}`)
+  }
+
   return (
     <div className="gallery-container">
       <h1>Gallery - Alegion</h1>
-      <div>Made with love, lmao</div>
       <Pagination
         className="pagination"
         onPageChange={(val) => setPage(val)}
@@ -34,29 +39,38 @@ export default function GalleryPage() {
       <div className="gallery-grid">
         {!images && <Spinner />}
         {images?.map((image, idx) => {
-          return <Images image={image} key={`image-${idx}`} />
+          return (
+            <Images
+              {...image}
+              key={`image-${idx}`}
+              onClick={() => onImageClick(image.id)}
+            />
+          )
         })}
       </div>
-      <Pagination
-        className="pagination"
-        onPageChange={(val) => setPage(val)}
-        currentPage={page}
-        totalPages={4}
-      />
+      {images && (
+        <Pagination
+          className="pagination"
+          onPageChange={(val) => setPage(val)}
+          currentPage={page}
+          totalPages={4}
+        />
+      )}
     </div>
   )
 }
 
-const Images = ({ image }: { image: ImageListProps }) => {
+const Images = ({ id, onClick }: ImageListProps & { onClick: () => void }) => {
   const { src, blur } = LazyLoadImg(
-    `${common}/id/${image.id}/50`,
-    `${common}/id/${image.id}/1000`
+    `${common}/id/${id}/50`,
+    `${common}/id/${id}/1000`
   )
 
   return (
     <>
       <Image
         src={src}
+        onClick={onClick}
         className={classes({
           'load-photo': blur
         })}

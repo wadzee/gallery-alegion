@@ -14,7 +14,7 @@ export default function Routes() {
       <div
         style={{
           margin: '0 auto',
-          maxWidth: '1300px'
+          maxWidth: '1600px'
         }}>
         <Switch>
           <Route path="/" exact component={GalleryPage} />
