@@ -11,18 +11,18 @@ import GalleryDetailPage from 'pages/GalleryDetailPage'
 export default function Routes() {
   return (
     <Router>
-      <Switch>
-        <div
-          style={{
-            margin: '0 auto',
-            maxWidth: '1300px',
-            padding: '20px 0'
-          }}>
+      <div
+        style={{
+          margin: '0 auto',
+          maxWidth: '1300px',
+          padding: '20px 0'
+        }}>
+        <Switch>
           <Route path="/" exact component={GalleryPage} />
           <Route path="/image" exact component={GalleryDetailPage} />
           <Redirect to="/" />
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   )
 }

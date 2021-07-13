@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { getImageList, ImageListProps, common } from 'services'
+import { LazyLoadImg } from 'Utils'
 import Pagination from 'components/Pagination'
 import Image from 'components/Image'
+import classes from 'classnames'
 import './gallery.scss'
-import Spinner from 'components/Spinner'
 
 export default function GalleryPage() {
   const [page, setPage] = useState(0)
@@ -31,34 +32,35 @@ export default function GalleryPage() {
       />
       <div className="gallery-grid">
         {images?.map((image, idx) => {
-          return <Images id={image.id} />
+          return <Images id={image.id} key={`image-${idx}`} />
         })}
       </div>
-      <Pagination
-        className="pagination"
-        onPageChange={(val) => setPage(val)}
-        currentPage={page}
-        totalPages={4}
-      />
+      {images && images.length > 0 && (
+        <Pagination
+          className="pagination"
+          onPageChange={(val) => setPage(val)}
+          currentPage={page}
+          totalPages={4}
+        />
+      )}
     </div>
   )
 }
 
 const Images = ({ id }: { id: number }) => {
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    setLoaded(false)
-  }, [id])
-
-  const onLoad = () => {
-    setLoaded(true)
-  }
+  const { src, blur } = LazyLoadImg(
+    `${common}/id/${id}/50`,
+    `${common}/id/${id}/1000`
+  )
 
   return (
     <>
-      {!loaded && <Spinner variant="dots" />}
-      <Image src={`${common}/id/${id}/200`} onLoad={onLoad} />
+      <Image
+        src={src}
+        className={classes({
+          'load-photo': blur
+        })}
+      />
     </>
   )
 }

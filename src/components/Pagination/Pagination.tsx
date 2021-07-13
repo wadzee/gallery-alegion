@@ -31,6 +31,7 @@ export default function Pagination({
         }).map((_value, index: number) => {
           return (
             <Button
+              key={`button-${index}`}
               className={styles.button}
               variant={currentPage === index ? 'contained' : 'outlined'}
               onClick={() => onPageChange(index)}>

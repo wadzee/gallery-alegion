@@ -6,7 +6,7 @@ export interface SpinnerProps {
 
 export default function Spinner({ variant = 'circle' }: SpinnerProps) {
   return (
-    <div className={styles.container}>
+    <div data-component="Spinner">
       {variant === 'circle' && <span className={styles.circle} />}
       {variant === 'dots' && (
         <span className={styles.dots}>
