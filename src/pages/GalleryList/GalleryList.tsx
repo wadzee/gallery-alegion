@@ -6,7 +6,7 @@ import Pagination from 'components/Pagination'
 import Image from 'components/Image'
 import Spinner from 'components/Spinner'
 import classes from 'classnames'
-import './gallery.scss'
+import './GalleryList.scss'
 
 export default function GalleryPage() {
   const [page, setPage] = useState(0)
@@ -29,7 +29,7 @@ export default function GalleryPage() {
 
   return (
     <div className="gallery-container">
-      <h1>Gallery - Alegion</h1>
+      <h1>Gallery List</h1>
       <Pagination
         className="pagination"
         onPageChange={(val) => setPage(val)}
@@ -61,7 +61,7 @@ export default function GalleryPage() {
 }
 
 const Images = ({ id, onClick }: ImageListProps & { onClick: () => void }) => {
-  const { src, blur } = LazyLoadImg(
+  const { src, loading } = LazyLoadImg(
     `${common}/id/${id}/50`,
     `${common}/id/${id}/1000`
   )
@@ -72,7 +72,7 @@ const Images = ({ id, onClick }: ImageListProps & { onClick: () => void }) => {
         src={src}
         onClick={onClick}
         className={classes({
-          'load-photo': blur
+          'load-photo': loading
         })}
       />
     </>

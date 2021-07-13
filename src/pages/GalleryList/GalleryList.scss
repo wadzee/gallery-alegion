@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import '../../styles/variables';
 
 .gallery-container {
   padding: 20px;
@@ -36,24 +36,5 @@
     width: 100%;
     filter: blur(10px);
     transition: filter 0.3s ease-out;
-  }
-}
-
-.gallery-item-container {
-  padding: 20px;
-
-  .imageContainer {
-    margin: 20px 0;
-
-    [data-component='Image'] {
-      height: 50vh;
-      margin-top: 10px;
-      margin: 0 auto;
-      border-radius: rem(20);
-
-      &:hover {
-        transition: all 0.2s ease-in-out;
-      }
-    }
   }
 }

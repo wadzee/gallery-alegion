@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.card {
+  padding: rem(16);
+  display: inline-block;
+  background-color: $white;
+  box-shadow: $box-shadow;
+}
+
+.card--md {
+  padding: rem(24);
+}
+
+.card--lg {
+  padding: rem(34);
+}

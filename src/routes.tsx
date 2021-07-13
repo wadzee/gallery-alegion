@@ -5,8 +5,8 @@ import {
   Switch
 } from 'react-router-dom'
 
-import GalleryPage from 'pages/GalleryPage'
-import GalleryDetailPage from 'pages/GalleryDetailPage'
+import GalleryList from 'pages/GalleryList/GalleryList'
+import GalleryDetails from 'pages/GalleryDetails/GalleryDetails'
 
 export default function Routes() {
   return (
@@ -17,8 +17,8 @@ export default function Routes() {
           maxWidth: '1600px'
         }}>
         <Switch>
-          <Route path="/" exact component={GalleryPage} />
-          <Route path="/image" exact component={GalleryDetailPage} />
+          <Route path="/" exact component={GalleryList} />
+          <Route path="/image" exact component={GalleryDetails} />
           <Redirect to="/" />
         </Switch>
       </div>

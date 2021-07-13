@@ -5,6 +5,7 @@ export interface ImageProps {
   styles?: React.CSSProperties
   children?: React.ReactNode
   onClick?: () => void
+  onLoad?: () => void
 }
 
 const noop = () => {}
