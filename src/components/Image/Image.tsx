@@ -4,8 +4,15 @@ export interface ImageProps {
   className?: string
   styles?: React.CSSProperties
   children?: React.ReactNode
+  onLoad?: () => void
 }
 
-export default function Image({ alt = '', ...rest }: ImageProps) {
-  return <img data-component="Image" alt={alt} {...rest} />
+const noop = () => {}
+
+export default function Image({
+  alt = '',
+  onLoad = noop,
+  ...rest
+}: ImageProps) {
+  return <img data-component="Image" alt={alt} {...rest} onLoad={onLoad} />
 }

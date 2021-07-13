@@ -6,7 +6,7 @@ export interface SpinnerProps {
 
 export default function Spinner({ variant = 'circle' }: SpinnerProps) {
   return (
-    <>
+    <div className={styles.container}>
       {variant === 'circle' && <span className={styles.circle} />}
       {variant === 'dots' && (
         <span className={styles.dots}>
@@ -15,6 +15,6 @@ export default function Spinner({ variant = 'circle' }: SpinnerProps) {
           <span />
         </span>
       )}
-    </>
+    </div>
   )
 }

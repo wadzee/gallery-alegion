@@ -1,22 +1,25 @@
 import Button from '../Button'
 import styles from './Pagination.module.scss'
+import classes from 'classnames'
 
 export interface PaginationProps {
   currentPage?: number
   totalPages?: number
   onPageChange: (value: number) => void
+  className?: string
 }
 
 export default function Pagination({
   currentPage = 0,
-  totalPages = 10,
+  totalPages = 4,
+  className,
   onPageChange
 }: PaginationProps) {
   const lastPage = totalPages - 1
 
   return (
     <nav>
-      <ul className={styles.container}>
+      <ul className={classes(styles.container, className)}>
         <Button
           variant="outlined"
           onClick={() => onPageChange(currentPage - 1)}
@@ -28,6 +31,7 @@ export default function Pagination({
         }).map((_value, index: number) => {
           return (
             <Button
+              className={styles.button}
               variant={currentPage === index ? 'contained' : 'outlined'}
               onClick={() => onPageChange(index)}>
               {index + 1}

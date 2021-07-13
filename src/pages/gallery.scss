@@ -1,0 +1,16 @@
+@import '../styles/variables';
+
+.pagination {
+  margin: rem(50) 0;
+  justify-content: flex-end;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  [data-component='Image'] {
+    width: 100%;
+  }
+}
