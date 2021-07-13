@@ -5,8 +5,8 @@ export function LazyLoadImg(lowQualitySrc: string, highQualitySrc: string) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setSrc(lowQualitySrc)
     setLoading(true)
+    setSrc(lowQualitySrc)
     const img = new Image()
     img.src = highQualitySrc
     img.onload = () => {

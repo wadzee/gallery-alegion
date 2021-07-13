@@ -62,7 +62,6 @@ export default function GalleryDetailPage() {
 
   const onLoad = (val: boolean) => {
     setLoading(val)
-    setApplyBlur(false)
   }
 
   return (
@@ -84,11 +83,7 @@ export default function GalleryDetailPage() {
                 <Spinner />
               </div>
             )}
-            <Images
-              {...image}
-              onLoad={onLoad}
-              blurred={applyBlur ? blurred : 0}
-            />
+            <Images {...image} onLoad={onLoad} blurred={blurred} />
           </Card>
           <div className="info-card">
             <div>
@@ -144,7 +139,6 @@ const Images = ({
 
   useEffect(() => {
     onLoad(loading)
-    console.log('hihi')
   }, [loading, onLoad])
 
   return (
