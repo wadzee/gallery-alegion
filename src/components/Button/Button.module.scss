@@ -1,0 +1,44 @@
+@import '../../styles/variables';
+
+.button {
+  display: inline-flex;
+  margin: 0;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  letter-spacing: 0.0625em;
+  color: $white;
+  text-align: center;
+  text-decoration: none;
+  background-color: rgba($primary, 0);
+  border: 1px solid rgba($primary, 0);
+  padding: rem(8) rem(16);
+  border-radius: rem(5);
+  transition: $transition-base;
+  user-select: none;
+}
+
+.button--outlined {
+  color: $primary;
+  border-color: $primary;
+
+  &:hover {
+    color: $white;
+    cursor: pointer;
+    background-color: $primary;
+  }
+}
+
+.button--contained {
+  color: $white;
+  background-color: $primary;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $secondary;
+  }
+}
+
+.button--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
