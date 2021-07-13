@@ -5,13 +5,14 @@ import Pagination from 'components/Pagination'
 import Image from 'components/Image'
 import classes from 'classnames'
 import './gallery.scss'
+import Spinner from 'components/Spinner'
 
 export default function GalleryPage() {
   const [page, setPage] = useState(0)
   const [images, setImages] = useState<ImageListProps[]>()
 
   useEffect(() => {
-    setImages([])
+    setImages(undefined)
     fetchAPI(page + 1)
   }, [page])
 
@@ -21,7 +22,7 @@ export default function GalleryPage() {
   }
 
   return (
-    <div>
+    <div className="gallery-container">
       <h1>Gallery - Alegion</h1>
       <div>Made with love, lmao</div>
       <Pagination
@@ -31,26 +32,25 @@ export default function GalleryPage() {
         totalPages={4}
       />
       <div className="gallery-grid">
+        {!images && <Spinner />}
         {images?.map((image, idx) => {
-          return <Images id={image.id} key={`image-${idx}`} />
+          return <Images image={image} key={`image-${idx}`} />
         })}
       </div>
-      {images && images.length > 0 && (
-        <Pagination
-          className="pagination"
-          onPageChange={(val) => setPage(val)}
-          currentPage={page}
-          totalPages={4}
-        />
-      )}
+      <Pagination
+        className="pagination"
+        onPageChange={(val) => setPage(val)}
+        currentPage={page}
+        totalPages={4}
+      />
     </div>
   )
 }
 
-const Images = ({ id }: { id: number }) => {
+const Images = ({ image }: { image: ImageListProps }) => {
   const { src, blur } = LazyLoadImg(
-    `${common}/id/${id}/50`,
-    `${common}/id/${id}/1000`
+    `${common}/id/${image.id}/50`,
+    `${common}/id/${image.id}/1000`
   )
 
   return (
