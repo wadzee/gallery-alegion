@@ -1,6 +1,6 @@
 ## Live View
 
-Gallery Main Site : [https://alegion-gallery.netlify.app/](https://alegion-gallery.netlify.app/)
+Gallery Main Site : [https://alegion-gallery.netlify.app/](https://alegion-gallery.netlify.app/)\
 Gallery Storybook Site : [https://alegion-storybook.netlify.app/](https://alegion-storybook.netlify.app/)
 
 ## Available Scripts
