@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import Image from 'components/Image'
+import Image, { ImageProps } from 'components/Image'
 import { useLocation, useHistory } from 'react-router'
 import { getImageById, ImageListProps, getImageBlob, common } from 'services'
-import { LazyLoadImg } from 'Utils'
 import Spinner from 'components/Spinner'
 import Card from 'components/Card'
 import Button from 'components/Button'
@@ -15,9 +14,9 @@ function useQuery() {
 
 export default function GalleryDetailPage() {
   const [image, setImage] = useState<ImageListProps>()
-  const [blurred, setBlurred] = useState(0)
-  const [applyBlur, setApplyBlur] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [srcUrl, setSrcUrl] = useState('')
+  const [blurred, setBlurred] = useState<number | string>('')
+  const [loading, setLoading] = useState(true)
   const query = useQuery().get('id')
   const history = useHistory()
 
@@ -27,7 +26,10 @@ export default function GalleryDetailPage() {
     async function fetchAPI() {
       if (query) {
         const data = await getImageById(parseInt(query))
-        setImage(data)
+        if (data) {
+          setImage(data)
+          setSrcUrl(`${common}/id/${data.id}/4000`)
+        }
       }
     }
   }, [query])
@@ -49,6 +51,9 @@ export default function GalleryDetailPage() {
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value)
+    if (isNaN(value)) {
+      setBlurred('')
+    }
     if (value <= 10) {
       setBlurred(value)
     } else {
@@ -56,12 +61,13 @@ export default function GalleryDetailPage() {
     }
   }
 
-  const onApplyBlur = () => {
-    setApplyBlur(true)
-  }
-
-  const onLoad = (val: boolean) => {
-    setLoading(val)
+  const onApplyBlur = (id: number) => {
+    setLoading(true)
+    if (blurred > 0) {
+      setSrcUrl(`${common}/id/${id}/4000/?blur=${blurred}`)
+    } else {
+      setSrcUrl(`${common}/id/${id}/4000`)
+    }
   }
 
   return (
@@ -78,12 +84,19 @@ export default function GalleryDetailPage() {
       {image && (
         <>
           <Card padding="sm" className="image-card">
-            {loading && (
-              <div className="spinner-container">
-                <Spinner />
-              </div>
-            )}
-            <Images {...image} onLoad={onLoad} blurred={blurred} />
+            <div
+              className={classes('spinner-container', {
+                'spinner-hide': !loading
+              })}>
+              <Spinner />
+            </div>
+            <Images
+              src={srcUrl}
+              onLoad={() => setLoading(false)}
+              className={classes({
+                'image-hide': loading
+              })}
+            />
           </Card>
           <div className="info-card">
             <div>
@@ -106,14 +119,14 @@ export default function GalleryDetailPage() {
                 <p>Blur (0 - 10):</p>
                 <input
                   value={blurred}
-                  onChange={onInputChange}
                   type="number"
+                  onChange={onInputChange}
                   pattern="[0-9]*"
                   min={0}
                   max={10}
                 />
                 <div className="button-container">
-                  <Button onClick={onApplyBlur}>Apply</Button>
+                  <Button onClick={() => onApplyBlur(image.id)}>Apply</Button>
                 </div>
               </Card>
             </div>
@@ -124,33 +137,16 @@ export default function GalleryDetailPage() {
   )
 }
 
-const Images = ({
-  id,
-  blurred = 0,
-  onLoad
-}: ImageListProps & {
-  blurred?: string | number
-  onLoad: (val: boolean) => void
-}) => {
-  const { src, loading } = LazyLoadImg(
-    `${common}/id/${id}/50`,
-    `${common}/id/${id}/4000/${blurred > 0 ? `?blur=${blurred}` : ''}`
-  )
+const Images = ({ src, ...rest }: ImageProps) => {
+  const [srcUrl, setSrcUrl] = useState('')
 
   useEffect(() => {
-    onLoad(loading)
-  }, [loading, onLoad])
+    setSrcUrl(src)
+  }, [src])
 
   return (
     <>
-      {!loading && (
-        <Image
-          src={src}
-          className={classes({
-            'load-photo': loading
-          })}
-        />
-      )}
+      <Image src={srcUrl} {...rest} />
     </>
   )
 }

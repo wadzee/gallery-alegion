@@ -18,6 +18,7 @@
   .image-card {
     width: 100%;
     min-height: 50vh;
+    position: relative;
 
     .spinner-container {
       display: flex;
@@ -26,7 +27,19 @@
       min-height: 47vh;
     }
 
+    .spinner-hide {
+      display: none;
+    }
+
+    .image-hide {
+      display: none;
+    }
+
     [data-component='Image'] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: rem(24);
       max-height: 50vh;
       width: 100%;
     }
@@ -43,8 +56,16 @@
     display: flex;
     justify-content: space-between;
 
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
+
     [data-component='Card'] {
       border-radius: 10px;
+
+      @media only screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
 
     p {
