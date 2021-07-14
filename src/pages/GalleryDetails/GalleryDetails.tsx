@@ -62,6 +62,11 @@ export default function GalleryDetailPage() {
   }
 
   const onApplyBlur = (id: number) => {
+    // avoid rerender if apply button is clicked when current value are the same
+    if (typeof blurred === 'string' && srcUrl === `${common}/id/${id}/4000`) {
+      return
+    }
+
     setLoading(true)
     if (blurred > 0) {
       setSrcUrl(`${common}/id/${id}/4000/?blur=${blurred}`)
