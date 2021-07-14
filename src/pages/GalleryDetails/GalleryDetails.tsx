@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import Image, { ImageProps } from 'components/Image'
+import Image from 'components/Image'
 import { useLocation, useHistory } from 'react-router'
 import { getImageById, ImageListProps, getImageBlob, common } from 'services'
 import Spinner from 'components/Spinner'
@@ -90,7 +90,7 @@ export default function GalleryDetailPage() {
               })}>
               <Spinner />
             </div>
-            <Images
+            <Image
               src={srcUrl}
               onLoad={() => setLoading(false)}
               className={classes({
@@ -134,19 +134,5 @@ export default function GalleryDetailPage() {
         </>
       )}
     </div>
-  )
-}
-
-const Images = ({ src, ...rest }: ImageProps) => {
-  const [srcUrl, setSrcUrl] = useState('')
-
-  useEffect(() => {
-    setSrcUrl(src)
-  }, [src])
-
-  return (
-    <>
-      <Image src={srcUrl} {...rest} />
-    </>
   )
 }
