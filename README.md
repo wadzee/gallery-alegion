@@ -14,4 +14,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### `yarn storybook`
 
 Runs the storybook development mode.\
-Open [https://alegion-gallery.netlify.app/](https://alegion-gallery.netlify.app/) to view it in the browser
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser
