@@ -54,7 +54,7 @@ export default function GalleryDetailPage() {
     if (isNaN(value)) {
       setBlurred('')
     }
-    if (value <= 10) {
+    if (value <= 10 && value > 0) {
       setBlurred(value)
     } else {
       event.preventDefault()
@@ -121,13 +121,13 @@ export default function GalleryDetailPage() {
             <div>
               <h2>Apply Filter</h2>
               <Card padding="md">
-                <p>Blur (0 - 10):</p>
+                <p>Blur (1 - 10):</p>
                 <input
                   value={blurred}
                   type="number"
                   onChange={onInputChange}
-                  pattern="[0-9]*"
-                  min={0}
+                  pattern="[1-9]*"
+                  min={1}
                   max={10}
                 />
                 <div className="button-container">
